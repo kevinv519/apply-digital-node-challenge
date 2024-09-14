@@ -1,9 +1,9 @@
-import { Column, DeleteDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DecimalColumnTransformer } from '../../core/typeorm/transformers/numeric.transformer';
 
 @Entity({ name: 'product' })
 export class ProductEntity {
-  @PrimaryColumn({ type: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ name: 'contentful_id', unique: true })
@@ -27,7 +27,7 @@ export class ProductEntity {
   @Column()
   color: string;
 
-  @Column({ transformer: new DecimalColumnTransformer() })
+  @Column({ type: 'numeric', transformer: new DecimalColumnTransformer() })
   price: number;
 
   @Column()
