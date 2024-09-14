@@ -8,12 +8,12 @@ services:
       - '3000:3000'
     env_file:
       - .env
+    environment:
+      POSTGRES_HOST: "postgres" # override to connect to database from docker
     volumes:
       - .:/app  # For live-reloading in development
       - /app/node_modules  # Prevent overwriting node_modules
     depends_on:
-      - postgres
-    links:
       - postgres
     command: npm run start:dev
 
