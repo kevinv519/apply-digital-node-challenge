@@ -13,6 +13,8 @@ services:
       - /app/node_modules  # Prevent overwriting node_modules
     depends_on:
       - postgres
+    links:
+      - postgres
     command: npm run start:dev
 
   postgres:
