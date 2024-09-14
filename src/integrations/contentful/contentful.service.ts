@@ -24,7 +24,7 @@ export class ContentfulService {
     };
 
     if (filterParams.lastUpdateDate) {
-      params['sys.updatedAt[gte]'] = filterParams.lastUpdateDate.toISOString();
+      params['sys.updatedAt[gt]'] = filterParams.lastUpdateDate.toISOString();
     }
 
     const response = await lastValueFrom(this.httpService.get<ContentfulApiResponse>(url, { params }));
