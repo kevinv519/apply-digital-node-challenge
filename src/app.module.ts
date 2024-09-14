@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { IntegrationsModule } from './integrations/integrations.module';
 import databaseConfig from './config/database.config';
+import { IntegrationsModule } from './integrations/integrations.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import databaseConfig from './config/database.config';
         migrationsRun: true,
       }),
     }),
+    ScheduleModule.forRoot(),
     IntegrationsModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
