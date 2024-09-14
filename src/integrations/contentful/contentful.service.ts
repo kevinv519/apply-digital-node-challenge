@@ -16,7 +16,6 @@ export class ContentfulService {
 
   async fetchProductsPage(filterParams: FetchPageFilter): Promise<ContentfulApiResponse> {
     const url = `${this.config.baseUrl}/spaces/${this.config.space}/environments/${this.config.environment}/entries`;
-    console.log(url);
     const params = {
       limit: filterParams.limit,
       skip: filterParams.skip,
