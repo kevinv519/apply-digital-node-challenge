@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ContentfulService } from '../../integrations/contentful/contentful.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -51,8 +51,18 @@ export class ProductsService {
     return plainToInstance(ProductPaginatedResultDto, { total, page, pageSize, data: products });
   }
 
+  async removeProductById(id: string): Promise<void> {
+    const foundProduct = await this.productRepository.findOneBy({ id });
+
+    if (!foundProduct) {
+      throw new NotFoundException(`Product with ID '${id}' not found`);
+    }
+
+    await this.productRepository.softRemove(foundProduct);
+  }
+
   @Cron(CronExpression.EVERY_HOUR)
-  async syncDataFromContentful() {
+  async syncDataFromContentful(): Promise<void> {
     this.logger.log('Starting scheduled job to sync products from Contentful');
 
     const lastProduct = await this.productRepository.findOne({
