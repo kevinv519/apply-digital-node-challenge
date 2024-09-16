@@ -52,7 +52,9 @@ export class ProductsService {
     if (maxPrice) {
       pricesFilter.push(LessThanOrEqual(maxPrice));
     }
-    where.price = And(...pricesFilter);
+    if (pricesFilter.length) {
+      where.price = And(...pricesFilter);
+    }
 
     const [products, total] = await this.productRepository.findAndCount({
       where,
