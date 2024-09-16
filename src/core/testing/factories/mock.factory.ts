@@ -18,14 +18,16 @@ export function mockFactory<T>(classToMock: ClassConstructor<T>): PartialMock<T>
 
 export function mockRepositoryFactory<T extends ObjectLiteral>(): PartialMock<Repository<T>> {
   return {
+    count: jest.fn(),
     create: jest.fn(),
-    save: jest.fn(),
-    upsert: jest.fn(),
-    remove: jest.fn(),
-    softRemove: jest.fn(),
     find: jest.fn(),
+    findAndCount: jest.fn(),
     findOne: jest.fn(),
     findOneBy: jest.fn(),
-    findAndCount: jest.fn(),
+    remove: jest.fn(),
+    save: jest.fn(),
+    softRemove: jest.fn(),
+    upsert: jest.fn(),
+    createQueryBuilder: jest.fn(),
   };
 }
