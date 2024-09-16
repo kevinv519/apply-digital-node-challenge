@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import databaseConfig from './config/database.config';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { ProductsModule } from './products/products.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProductsModule } from './products/products.module';
     ScheduleModule.forRoot(),
     IntegrationsModule,
     ProductsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
