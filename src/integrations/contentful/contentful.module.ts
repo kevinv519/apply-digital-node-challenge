@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ContentfulService } from './contentful.service';
+import { ContentfulService } from './services/contentful.service';
 import { ConfigModule } from '@nestjs/config';
 import contentfulConfig from './config/contentful.config';
 import { HttpModule } from '@nestjs/axios';
