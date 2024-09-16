@@ -43,6 +43,7 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.0.1",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
@@ -78,7 +79,8 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.controller.(t|j)s",
+      "**/*.service.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

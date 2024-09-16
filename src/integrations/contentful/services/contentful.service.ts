@@ -1,10 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
-import contentfulConfig from './config/contentful.config';
+import contentfulConfig from '../config/contentful.config';
 import { ConfigType } from '@nestjs/config';
-import { ContentfulApiResponse } from './interfaces/contentful-api-response.interface';
+import { ContentfulApiResponse } from '../interfaces/contentful-api-response.interface';
 import { lastValueFrom } from 'rxjs';
-import { FetchPageFilter } from './interfaces/fetch-page-filter.interface';
+import { FetchPageFilter } from '../interfaces/fetch-page-filter.interface';
 
 @Injectable()
 export class ContentfulService {

@@ -1,9 +1,19 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ContentfulService } from '../../integrations/contentful/contentful.service';
+import { ContentfulService } from '../../integrations/contentful/services/contentful.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from '../entities/product.entity';
-import { FindOptionsWhere, ILike, IsNull, Not, Repository, MoreThanOrEqual, LessThanOrEqual } from 'typeorm';
+import {
+  FindOptionsWhere,
+  ILike,
+  IsNull,
+  Not,
+  Repository,
+  MoreThanOrEqual,
+  LessThanOrEqual,
+  And,
+  FindOperator,
+} from 'typeorm';
 import { ProductFilterQueryDto } from '../dtos/product-filter-query.dto';
 import { plainToInstance } from 'class-transformer';
 import { ProductPaginatedResultDto } from '../dtos/product-paginated-result.dto';
@@ -35,12 +45,14 @@ export class ProductsService {
     if (category) {
       where.category = category;
     }
+    const pricesFilter: FindOperator<number>[] = [];
     if (minPrice) {
-      where.price = MoreThanOrEqual(minPrice);
+      pricesFilter.push(MoreThanOrEqual(minPrice));
     }
     if (maxPrice) {
-      where.price = LessThanOrEqual(maxPrice);
+      pricesFilter.push(LessThanOrEqual(maxPrice));
     }
+    where.price = And(...pricesFilter);
 
     const [products, total] = await this.productRepository.findAndCount({
       where,
