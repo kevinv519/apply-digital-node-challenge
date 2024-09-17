@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, HttpCode, HttpStatus, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { IdUuidParamDto } from '../../core/dtos/id-uuid-param.dto';
@@ -14,6 +14,12 @@ export class ProductsController {
   @Get()
   listProductsPage(@Query() filterQueryDto: ProductFilterQueryDto): Promise<ProductPaginatedResultDto> {
     return this.productsService.listProductsPage(filterQueryDto);
+  }
+
+  @Post('sync')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  syncProducts() {
+    return this.productsService.syncDataFromContentful();
   }
 
   @UseGuards(JwtAuthGuard)
