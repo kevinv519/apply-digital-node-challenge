@@ -34,6 +34,7 @@ You can see pull requests in [here](https://github.com/kevinv519/apply-digital-n
 
 1. Start project with `docker compose up -d`
 2. Go to `http://localhost:3000/api/docs`
+3. If you do not see any products, it's because it's schedule to run at the beginning of every hour. You can force syncing the products by hitting the `POST http://localhost:3000/products/sync`
 
 ## Tests
 
