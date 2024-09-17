@@ -26,9 +26,7 @@ export class ProductsService {
     private readonly contentfulService: ContentfulService,
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
-  ) {
-    this.syncDataFromContentful();
-  }
+  ) {}
 
   async listProductsPage(filterQueryDto: ProductFilterQueryDto) {
     const where: FindOptionsWhere<ProductEntity> = {};
