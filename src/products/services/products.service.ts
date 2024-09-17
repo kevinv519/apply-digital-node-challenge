@@ -1,22 +1,22 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ContentfulService } from '../../integrations/contentful/services/contentful.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductEntity } from '../entities/product.entity';
+import { plainToInstance } from 'class-transformer';
 import {
+  And,
+  FindOperator,
   FindOptionsWhere,
   ILike,
   IsNull,
+  LessThanOrEqual,
+  MoreThanOrEqual,
   Not,
   Repository,
-  MoreThanOrEqual,
-  LessThanOrEqual,
-  And,
-  FindOperator,
 } from 'typeorm';
+import { ContentfulService } from '../../integrations/contentful/services/contentful.service';
 import { ProductFilterQueryDto } from '../dtos/product-filter-query.dto';
-import { plainToInstance } from 'class-transformer';
 import { ProductPaginatedResultDto } from '../dtos/product-paginated-result.dto';
+import { ProductEntity } from '../entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -26,7 +26,9 @@ export class ProductsService {
     private readonly contentfulService: ContentfulService,
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
-  ) {}
+  ) {
+    this.syncDataFromContentful();
+  }
 
   async listProductsPage(filterQueryDto: ProductFilterQueryDto) {
     const where: FindOptionsWhere<ProductEntity> = {};
