@@ -1,12 +1,15 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { ReportsService } from '../services/reports.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AverageProductPriceByBrandResponseDto } from '../dtos/average-product-price-by-brand-response.dto';
 import { NonDeletedFilterQueryDto } from '../dtos/non-deleted-filter-query.dto';
 import { PercentageResponseDto } from '../dtos/percentage-response.dto';
-import { AverageProductPriceByBrandResponseDto } from '../dtos/average-product-price-by-brand-response.dto';
+import { ReportsService } from '../services/reports.service';
 
 @Controller('reports')
 @ApiTags('reports')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class ReportsController {
   constructor(private readonly reportsService: ReportsService) {}
 
